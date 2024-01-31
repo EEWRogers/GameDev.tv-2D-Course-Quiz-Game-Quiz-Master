@@ -11,6 +11,7 @@ public class Quiz : MonoBehaviour
 [SerializeField] GameObject[] answerButtons;
 [SerializeField] Sprite defaultAnswerSprite;
 [SerializeField] Sprite correctAnswerSprite;
+[SerializeField] Timer timer;
 int correctAnswerNumber;
 
 void Start()
