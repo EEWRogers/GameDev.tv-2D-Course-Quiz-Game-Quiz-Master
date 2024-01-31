@@ -15,8 +15,8 @@ MonoBehaviour:
   question: How much thermal paste should you use when attaching your CPU cooler
     to your CPU?
   answers:
-  - 
-  - 
-  - 
+  - Enough to cover the whole CPU
+  - Enough to make an X over the CPU
+  - A pea-sized amount in the middle of the CPU
   - 
   correctAnswerNumber: 0
