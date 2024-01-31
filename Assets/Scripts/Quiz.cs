@@ -45,5 +45,11 @@ void Start()
             string correctAnswer = quizQuestion.GetAnswer(correctAnswerNumber);
             questionText.text = "Incorrect! The correct answer was: \n" + correctAnswer;
         }
+
+        for(int button = 0; button < answerButtons.Length; button++)
+        {
+            Button answerButton = answerButtons[button].GetComponent<Button>();
+            answerButton.interactable = false;
+        }
     }
 }
