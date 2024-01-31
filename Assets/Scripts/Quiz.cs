@@ -15,14 +15,22 @@ int correctAnswerNumber;
 
 void Start()
     {
-        questionText.text = quizQuestion.Question;
-
-        PopulateAnswerButtons();
+        DisplayQuestion();
 
     }
 
-    void PopulateAnswerButtons()
+    void GetNextQuestion()
     {
+        ToggleAnswerButtonInteractability(true);
+        SetDefaultButtonSprites();
+        DisplayQuestion();
+
+    }
+
+    void DisplayQuestion()
+    {
+        questionText.text = quizQuestion.Question;
+
         for(int answerNumber = 0; answerNumber < answerButtons.Length; answerNumber++)
         {
             TextMeshProUGUI buttonText = answerButtons[answerNumber].GetComponentInChildren<TextMeshProUGUI>();
@@ -32,11 +40,11 @@ void Start()
 
     public void OnAnswerSelected(int answerNumber)
     {
-        Image buttonImage = answerButtons[quizQuestion.CorrectAnswerNumber].GetComponent<Image>();
-        buttonImage.sprite = correctAnswerSprite;
+        Image correctAnswerButtonImage = answerButtons[quizQuestion.CorrectAnswerNumber].GetComponent<Image>();
+        correctAnswerButtonImage.sprite = correctAnswerSprite;
         correctAnswerNumber = quizQuestion.CorrectAnswerNumber;
 
-        if(answerNumber == quizQuestion.CorrectAnswerNumber)
+        if (answerNumber == correctAnswerNumber)
         {
             questionText.text = "Correct!";
         }
@@ -46,10 +54,24 @@ void Start()
             questionText.text = "Incorrect! The correct answer was: \n" + correctAnswer;
         }
 
-        for(int button = 0; button < answerButtons.Length; button++)
+        ToggleAnswerButtonInteractability(false);
+    }
+
+    void ToggleAnswerButtonInteractability(bool state)
+    {
+        for (int button = 0; button < answerButtons.Length; button++)
         {
             Button answerButton = answerButtons[button].GetComponent<Button>();
-            answerButton.interactable = false;
+            answerButton.interactable = state;
+        }
+    }
+
+    void SetDefaultButtonSprites()
+    {
+        for (int button = 0; button < answerButtons.Length; button++)
+        {
+            Image buttonImage = answerButtons[button].GetComponent<Image>();
+            buttonImage.sprite = defaultAnswerSprite;
         }
     }
 }
