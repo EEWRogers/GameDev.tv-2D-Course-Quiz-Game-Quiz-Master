@@ -44,6 +44,7 @@ public class Quiz : MonoBehaviour
 
     void GetNextQuestion()
     {
+        if (questions.Count <= 0) { return; }
         ToggleAnswerButtonInteractability(true);
         SetDefaultButtonSprites();
         GetRandomQuestion();
