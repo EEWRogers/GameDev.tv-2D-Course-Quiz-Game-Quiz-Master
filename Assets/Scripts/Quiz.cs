@@ -7,7 +7,8 @@ using TMPro;
 public class Quiz : MonoBehaviour
 {
     [Header("Questions")]
-    [SerializeField] QuestionSO quizQuestion;
+    [SerializeField] List<QuestionSO> questions = new List<QuestionSO>();
+    QuestionSO currentquizQuestion;
     [SerializeField] TextMeshProUGUI questionText;
 
     [Header("Answers")]
@@ -23,7 +24,8 @@ public class Quiz : MonoBehaviour
 
     void Start() 
     {
-        DisplayQuestion();
+       GetRandomQuestion();
+       DisplayQuestion();
     }
 
     void Update() 
@@ -44,17 +46,29 @@ public class Quiz : MonoBehaviour
     {
         ToggleAnswerButtonInteractability(true);
         SetDefaultButtonSprites();
+        GetRandomQuestion();
         DisplayQuestion();
     }
 
     void DisplayQuestion()
     {
-        questionText.text = quizQuestion.Question;
+        questionText.text = currentquizQuestion.Question;
 
         for(int answerNumber = 0; answerNumber < answerButtons.Length; answerNumber++)
         {
             TextMeshProUGUI buttonText = answerButtons[answerNumber].GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = quizQuestion.GetAnswer(answerNumber);
+            buttonText.text = currentquizQuestion.GetAnswer(answerNumber);
+        }
+    }
+
+    void GetRandomQuestion()
+    {
+        int index = Random.Range(0, questions.Count-1);
+        currentquizQuestion = questions[index];
+
+        if (questions.Contains(currentquizQuestion))
+        {
+            questions.Remove(currentquizQuestion);
         }
     }
 
@@ -62,9 +76,9 @@ public class Quiz : MonoBehaviour
     {
         timer.SkipTimer();
 
-        Image correctAnswerButton = answerButtons[quizQuestion.CorrectAnswerNumber].GetComponent<Image>();
+        Image correctAnswerButton = answerButtons[currentquizQuestion.CorrectAnswerNumber].GetComponent<Image>();
         correctAnswerButton.sprite = correctAnswerSprite;
-        correctAnswerNumber = quizQuestion.CorrectAnswerNumber;
+        correctAnswerNumber = currentquizQuestion.CorrectAnswerNumber;
 
         if (answerNumber == correctAnswerNumber)
         {
@@ -72,7 +86,7 @@ public class Quiz : MonoBehaviour
         }
         else
         {
-            string correctAnswer = quizQuestion.GetAnswer(correctAnswerNumber);
+            string correctAnswer = currentquizQuestion.GetAnswer(correctAnswerNumber);
             questionText.text = "Incorrect! The correct answer was: \n" + correctAnswer;
         }
 

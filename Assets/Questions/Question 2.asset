@@ -14,3 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   question: What is the most important thing to check when considering which motherboard
     to use in your build?
+  answers:
+  - The socket type matches your CPU
+  - You like the aesthetics of it
+  - It is the cheapest one you can find
+  - It is highly rated by reviewers
+  correctAnswerNumber: 0

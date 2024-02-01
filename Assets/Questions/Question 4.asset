@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: Question 4
   m_EditorClassIdentifier: 
   question: What is the benefit of using an SSD over an HDD?
+  answers:
+  - They are cheaper
+  - They are easier to install
+  - They allow for faster data transfer
+  - They can store more data
+  correctAnswerNumber: 2

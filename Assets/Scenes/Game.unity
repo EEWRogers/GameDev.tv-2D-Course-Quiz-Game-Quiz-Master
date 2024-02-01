@@ -240,7 +240,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d08b30b26a72a5045a30c5c615bd377d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quizQuestion: {fileID: 11400000, guid: ce5998e7af3fc4540916f1179be210ac, type: 2}
+  questions:
+  - {fileID: 11400000, guid: ce5998e7af3fc4540916f1179be210ac, type: 2}
+  - {fileID: 11400000, guid: ab8aa5827888f2e4992274ba0e943477, type: 2}
+  - {fileID: 11400000, guid: 9ee84e36abb6d7748bd32a3d5356b7df, type: 2}
+  - {fileID: 11400000, guid: a0ea3c585daba6b42ba7d102fee1e7dc, type: 2}
+  - {fileID: 11400000, guid: ad7f6b4683789dc4aaa0c40e85b73979, type: 2}
   questionText: {fileID: 550983728}
   answerButtons:
   - {fileID: 1724990909}
@@ -249,7 +254,7 @@ MonoBehaviour:
   - {fileID: 1796011001}
   defaultAnswerSprite: {fileID: 21300000, guid: 81fe83c3bebe89842861082349b274f0, type: 3}
   correctAnswerSprite: {fileID: 21300000, guid: c61089ea1b8773b4482c1b5baf62a8ab, type: 3}
-  timer: {fileID: 0}
+  timer: {fileID: 681571409}
 --- !u!1 &385088654
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,7 +604,7 @@ MonoBehaviour:
   timeToAnswer: 15
   timeBetweenQuestions: 3
   timerImage: {fileID: 1404599119}
-  isAnsweringQuestion: 1
+  displayingQuestion: 1
   loadNextQuestion: 0
 --- !u!1 &889890007
 GameObject:

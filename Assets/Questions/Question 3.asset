@@ -14,3 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   question: What is the current recommended minimum number of RAM sticks for a PC
     build?
+  answers:
+  - One with the largest memory size you can afford
+  - Two of the same memory size
+  - Four of the same memory size
+  - Two, one larger and a smaller reserve
+  correctAnswerNumber: 1
