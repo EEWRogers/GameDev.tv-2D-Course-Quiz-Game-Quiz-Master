@@ -26,10 +26,17 @@ public class Quiz : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] ScoreKeeper scoreKeeper;
 
+    [Header("Progress Bar")]
+    [SerializeField] Slider progressBar;
+
+    public bool isComplete;
+
     void Start() 
     {
        GetRandomQuestion();
        DisplayQuestion();
+       progressBar.maxValue = questions.Count;
+       progressBar.value = 0;
     }
 
     void Update() 
@@ -49,6 +56,7 @@ public class Quiz : MonoBehaviour
 
     void GetNextQuestion()
     {
+        progressBar.value++;
         if (questions.Count <= 0) { return; }
         ToggleAnswerButtonInteractability(true);
         SetDefaultButtonSprites();
@@ -83,6 +91,18 @@ public class Quiz : MonoBehaviour
     {
         timer.SkipTimer();
 
+        DisplayAnswer(answerNumber);
+
+        ToggleAnswerButtonInteractability(false);
+
+        if (progressBar.value == progressBar.maxValue)
+        {
+            isComplete = true;
+        }
+    }
+
+    void DisplayAnswer(int answerNumber)
+    {
         Image correctAnswerButton = answerButtons[currentquizQuestion.CorrectAnswerNumber].GetComponent<Image>();
         correctAnswerButton.sprite = correctAnswerSprite;
         correctAnswerNumber = currentquizQuestion.CorrectAnswerNumber;
@@ -97,8 +117,6 @@ public class Quiz : MonoBehaviour
             string correctAnswer = currentquizQuestion.GetAnswer(correctAnswerNumber);
             questionText.text = "Incorrect! The correct answer was: \n" + correctAnswer;
         }
-
-        ToggleAnswerButtonInteractability(false);
     }
 
     void ToggleAnswerButtonInteractability(bool state)
