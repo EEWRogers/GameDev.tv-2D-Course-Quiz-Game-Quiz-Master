@@ -7,33 +7,33 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     [SerializeField] float timeToAnswer = 15f;
-    [SerializeField] float timeBetweenQuestions = 3f;
+    [SerializeField] float timeBetweenQuestions = 5f;
     [SerializeField] Image timerImage;
-    public bool isAnsweringQuestion = true;
-    public bool loadNextQuestion;
+    public bool displayingQuestion = true;
+    public bool loadNextQuestion = false;
     float timerValue;
 
     void Start() 
     {
         timerValue = timeToAnswer;
+        displayingQuestion = true;
     }
 
     void Update() 
     {
         UpdateTimer();
         SetTimerFillAmount();
-        Debug.Log(timerValue);
     }
 
     void UpdateTimer()
     {
         timerValue -= Time.deltaTime;
 
-        if(isAnsweringQuestion)
+        if(displayingQuestion)
         {
             if (timerValue <= 0)
             {
-                isAnsweringQuestion = false;
+                displayingQuestion = false;
                 timerValue = timeBetweenQuestions;
             }
         }
@@ -41,7 +41,7 @@ public class Timer : MonoBehaviour
         {
             if (timerValue <= 0)
             {
-                isAnsweringQuestion = true;
+                displayingQuestion = true;
                 timerValue = timeToAnswer;
                 loadNextQuestion = true;
             }
@@ -57,7 +57,7 @@ public class Timer : MonoBehaviour
     {
         float timerPercentage;
 
-        if (isAnsweringQuestion)
+        if (displayingQuestion)
         {
             timerPercentage = timerValue / timeToAnswer;
         }

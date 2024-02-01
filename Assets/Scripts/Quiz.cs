@@ -6,18 +6,38 @@ using TMPro;
 
 public class Quiz : MonoBehaviour
 {
-[SerializeField] QuestionSO quizQuestion;
-[SerializeField] TextMeshProUGUI questionText;
-[SerializeField] GameObject[] answerButtons;
-[SerializeField] Sprite defaultAnswerSprite;
-[SerializeField] Sprite correctAnswerSprite;
-[SerializeField] Timer timer;
-int correctAnswerNumber;
+    [Header("Questions")]
+    [SerializeField] QuestionSO quizQuestion;
+    [SerializeField] TextMeshProUGUI questionText;
 
-void Start()
+    [Header("Answers")]
+    [SerializeField] GameObject[] answerButtons;
+    int correctAnswerNumber;
+
+    [Header("Button Colours")]
+    [SerializeField] Sprite defaultAnswerSprite;
+    [SerializeField] Sprite correctAnswerSprite;
+
+    [Header("Timer")]
+    [SerializeField] Timer timer;
+
+    void Start() 
     {
         DisplayQuestion();
+    }
 
+    void Update() 
+    {
+        if (timer.loadNextQuestion)
+        {
+            timer.loadNextQuestion = false;
+            GetNextQuestion();
+        }
+
+        if (!timer.displayingQuestion)
+        {
+            ToggleAnswerButtonInteractability(false);
+        }
     }
 
     void GetNextQuestion()
@@ -25,7 +45,6 @@ void Start()
         ToggleAnswerButtonInteractability(true);
         SetDefaultButtonSprites();
         DisplayQuestion();
-
     }
 
     void DisplayQuestion()
@@ -41,8 +60,10 @@ void Start()
 
     public void OnAnswerSelected(int answerNumber)
     {
-        Image correctAnswerButtonImage = answerButtons[quizQuestion.CorrectAnswerNumber].GetComponent<Image>();
-        correctAnswerButtonImage.sprite = correctAnswerSprite;
+        timer.SkipTimer();
+
+        Image correctAnswerButton = answerButtons[quizQuestion.CorrectAnswerNumber].GetComponent<Image>();
+        correctAnswerButton.sprite = correctAnswerSprite;
         correctAnswerNumber = quizQuestion.CorrectAnswerNumber;
 
         if (answerNumber == correctAnswerNumber)
