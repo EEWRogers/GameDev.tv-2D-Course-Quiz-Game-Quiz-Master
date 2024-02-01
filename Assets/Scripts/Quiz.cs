@@ -22,6 +22,10 @@ public class Quiz : MonoBehaviour
     [Header("Timer")]
     [SerializeField] Timer timer;
 
+    [Header("ScoreKeeper")]
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] ScoreKeeper scoreKeeper;
+
     void Start() 
     {
        GetRandomQuestion();
@@ -38,6 +42,7 @@ public class Quiz : MonoBehaviour
 
         if (!timer.displayingQuestion)
         {
+            scoreText.text = "Score: " + scoreKeeper.CalculateScore() + "%";
             ToggleAnswerButtonInteractability(false);
         }
     }
@@ -53,6 +58,7 @@ public class Quiz : MonoBehaviour
 
     void DisplayQuestion()
     {
+        scoreKeeper.IncrementQuestionsSeen();
         questionText.text = currentquizQuestion.Question;
 
         for(int answerNumber = 0; answerNumber < answerButtons.Length; answerNumber++)
@@ -83,6 +89,7 @@ public class Quiz : MonoBehaviour
 
         if (answerNumber == correctAnswerNumber)
         {
+            scoreKeeper.IncrementCorrectAnswers();
             questionText.text = "Correct!";
         }
         else
