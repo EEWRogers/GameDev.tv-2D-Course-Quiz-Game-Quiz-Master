@@ -57,11 +57,17 @@ public class Quiz : MonoBehaviour
     void GetNextQuestion()
     {
         progressBar.value++;
-        if (questions.Count <= 0) { return; }
+        if (questions.Count <= 0)
+        {
+            isComplete = true;
+        }
+        if (questions.Count > 0)
+        {
         ToggleAnswerButtonInteractability(true);
         SetDefaultButtonSprites();
         GetRandomQuestion();
         DisplayQuestion();
+        }
     }
 
     void DisplayQuestion()
@@ -94,11 +100,6 @@ public class Quiz : MonoBehaviour
         DisplayAnswer(answerNumber);
 
         ToggleAnswerButtonInteractability(false);
-
-        if (progressBar.value == progressBar.maxValue)
-        {
-            isComplete = true;
-        }
     }
 
     void DisplayAnswer(int answerNumber)
